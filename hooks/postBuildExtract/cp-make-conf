@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Name       : postBuildExtract
+# Command    : 
+# Description:
+# Hook to run after a Build has been extracted.
+# The following environment will be passed to the hook command:
+#     BUILD : Build name
+#     DESTDIR : Extract destination
+#     JAIL : Jail for this Build
+#     PB : Tinderbox root
+#     RC : Result code of the extraction
+MYNAME=$0
+MAKE_CONF="${PB}/builds/make.conf.${BUILD}"
+logger -t "${MYNAME}" "copying make.conf from ${MAKE_CONF} to ${DESTDIR}/etc/make.conf (if any)"
+if [ -f ${MAKE_CONF} ]; then
+    cp ${MAKE_CONF} ${DESTDIR}/etc/make.conf || exit 1
+fi
+
