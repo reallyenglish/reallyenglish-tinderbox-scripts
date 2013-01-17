@@ -1,0 +1,13 @@
+.if ${.CURDIR:M*/sysutils/rubygem-chef}
+WITH_PKGUPGRADE=y
+.endif
+
+.if ${.CURDIR:M*/www/graphite-web*}
+# prefer WSGI implementation to apache
+WITHOUT_APACHE=y
+WITHOUT_MODPYTHON3=y
+WITHOUT_MODWSGI3=y
+WITHOUT_MYSQL=y
+WITH_CARBON=y
+WITH_SQLITE3=y
+.endif

@@ -1,0 +1,12 @@
+TB_ROOT?=	/usr/local/tinderbox
+BUILDS_DIR=	${TB_ROOT}/builds
+PORTSTREE_DIR=	${TB_ROOT}/portstrees
+JAILS_DIR=	${TB_ROOT}/jails
+
+BIN_MODE?=	555
+SHARE_MODE?=	444
+INSTALL_BIN?=	install
+INSTALL_FLAGS?=	-o root -g wheel
+INSTALL_BIN?=	${INSTALL_BIN} ${INSTALL_FLAGS} -m ${BIN_MODE}
+INSTALL_SHARED?=	${INSTALL_BIN} ${INSTALL_FLAGS} -m ${SHARE_MODE}
+
