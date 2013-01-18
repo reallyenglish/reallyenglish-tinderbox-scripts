@@ -1,3 +1,5 @@
+RUBY_VER=	1.9
+
 .if ${.CURDIR:M*/sysutils/rubygem-chef}
 WITH_PKGUPGRADE=y
 .endif
