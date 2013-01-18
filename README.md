@@ -24,4 +24,4 @@ hook.
 portstrees
 ----------
 
-install update.sh for each builds.
+install update.sh for each portstree.
