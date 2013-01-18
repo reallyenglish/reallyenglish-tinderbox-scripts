@@ -1,4 +1,4 @@
-SUBDIR=	builds
+SUBDIR=	builds hooks portstrees
 
 all:
 .for D in ${SUBDIR}
