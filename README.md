@@ -14,3 +14,9 @@ builds
 ------
 
 install make.conf(5) for each builds.
+
+hooks
+-----
+
+install and register hooks. the file name of a hook must be the name of the
+hook.
