@@ -20,3 +20,8 @@ hooks
 
 install and register hooks. the file name of a hook must be the name of the
 hook.
+
+portstrees
+----------
+
+install update.sh for each builds.
