@@ -4,6 +4,7 @@ PORTSTREE_DIR=	${TB_ROOT}/portstrees
 JAILS_DIR=	${TB_ROOT}/jails
 SCRIPTS_DIR?=	${TB_ROOT}/scripts
 HOOKS_DIR?=	${SCRIPTS_DIR}/hooks
+ENV_DIR?=	${SCRIPTS_DIR}/etc/env
 TC_CMD?=	${SCRIPTS_DIR}/tc
 
 BIN_MODE?=	555
