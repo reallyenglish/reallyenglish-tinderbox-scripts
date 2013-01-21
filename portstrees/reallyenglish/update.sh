@@ -3,6 +3,8 @@ set -e
 MYNAME=$0
 
 TB_ROOT=/usr/local/tinderbox
+SCPRIPTS_DIR=${TB_ROOT}/scripts
+ENV_DIR=${SCPRIPTS_DIR}/etc/env
 PORTSTREE_ROOT=${TB_ROOT}/portstrees/reallyenglish
 PORTSTREE=${PORTSTREE_ROOT}/ports
 GIT_URL="https://github.com/reallyenglish/freebsd-ports.git"
@@ -59,12 +61,18 @@ else
         if [ x${_PORTSTREE} == x"reallyenglish" ]; then
             mylog "${BUILD} is using branch reallyenglish"
             if [ -d ${TB_ROOT}/packages/${BUILD} ]; then
-                # XXX INDEX-9 is hard-coded here. when you build packages for other major version, you need to define INDEXFILE
+                # use "-a" to export all variables in env files
+                sh -a -c "
+                [ -f ${ENV_DIR}/build.9.1-reallyenglish ] && . ${ENV_DIR}/build.9.1-reallyenglish; \
+                [ -f ${ENV_DIR}/portstree.reallyenglish ] && . ${ENV_DIR}/reallyenglish; \
+                [ -f ${ENV_DIR}/GLOBAL ]                  && . ${ENV_DIR}/GLOBAL; echo ${RUBY_VER}; \
                 make -C ${PORTSTREE} index \
                     INDEX_JOBS=${INDEX_JOBS} \
                     __MAKE_CONF=${TB_ROOT}/builds/make.conf.${BUILD} \
                     PORTSDIR=${PORTSTREE} \
                     INDEXDIR=${TB_ROOT}/packages/${BUILD}
+                "
+                # XXX INDEX-9 is hard-coded here. when you build packages for other major version, you need to define INDEXFILE
                 cp ${TB_ROOT}/packages/${BUILD}/INDEX-9 ${TB_ROOT}/packages/${BUILD}/INDEX
                 bzip2 -k -f ${TB_ROOT}/packages/${BUILD}/INDEX
             else
