@@ -1,4 +1,266 @@
 RUBY_DEFAULT_VER=   1.9
+# when a port has -nox11 child port or requires X11,
+# list it here
+.if ${.CURDIR:M*/graphics/cairo} || \
+	${.CURDIR:M*/graphics/ImageMagick} || \
+	${.CURDIR:M*/print/ghostscript7} || \
+	${.CURDIR:M*/print/ghostscript8} || \
+	${.CURDIR:M*/lang/ocaml} || \
+	${.CURDIR:M*/editors/emacs}
+# x11-toolkit/gtk20 requires cairo with X11 support
+# graphics/ImageMagick depends on ghostscript _with_ X11 support,
+# if you want graphics/ImageMagick without X11 support, install
+# graphics/ImageMagick-nox11
+# graphics/ocaml-lablgl requires ocaml with X11 support
+# if you want lang/ocaml without X11 support, install lang/ocaml-nox11
+# if you want editors/emacs without X11 support, install editors/emacs-nox11
+
+.else
+WITHOUT_X11=y
+.endif
+
+.if ${.CURDIR:M*/www/mod_perl} || \
+	${.CURDIR:M*/www/p5-Apache-DBI-mp1} || \
+	${.CURDIR:M*/www/p5-Apache-Test} || \
+	${.CURDIR:M*/net-mgmt/netdisco} || \
+	${.CURDIR:M*/www/p5-libapreq
+# mod_perl supports apache13 only
+APACHE_PORT=	www/apache13
+
+.elif ${.CURDIR:M*/lang/php5} || \
+	${.CURDIR:M*/lang/php4}
+# by default, lang/php[45] doesn't install mod_php[45]
+WITH_APACHE=	Yes
+# php is not thread-safe
+APACHE_PORT=	www/apache22
+# enable experimental "A simple and robust FastCGI Process Manager for PHP"
+WITH_FPM=y
+.else
+# always prefer apache22 worker
+APACHE_PORT=	www/apache22-worker-mpm
+.endif
+
+.if ${.CURDIR:M*/www/apache22*}
+# www/apache22 and www/apache22-*-mpm
+WITH_LDAP=y
+WITH_AUTHNZ_LDAP=y
+# mod_security requires WITH_UNIQUE_ID=y
+WITH_UNIQUE_ID=y
+# enable proxy for rproxy[12]
+WITH_PROXY=y
+WITH_PROXY_HTTP=y
+WITH_PROXY_BALANCER=y
+.endif
+
+# apache22 requires LDAP and BDB support
+# XXX the port ignore make.conf
+# XXX _temporally_ define env variables in
+# XXX /usr/local/tinderbox/scripts/etc/env/build.8.2-Re
+# XXX and build devel/apr1
+.if ${.CURDIR:M*/devel/apr1}
+WITH_BDB=y
+WITH_LDAP=y
+.endif
+
+# REMS2 requires PostgreSQL 8.2
+# list ports here if:
+# * the port is used for REMS
+# * the port is known not to work with 8.4 (currently default)
+.if ${.CURDIR:M*/databases/skytools} || \
+	${.CURDIR:M*/databases/php5-pgsql} || \
+	${.CURDIR:M*/databases/php4-pgsql} || \
+        ${.CURDIR:M*/databases/py-psycopg2} || \
+	${.CURDIR:M*/textproc/sphinxsearch*}
+DEFAULT_PGSQL_VER=	82
+WITH_PGSQL_VER=	82
+.endif
+
+.if ${.CURDIR:M*/www/mod_security*}
+SKIP_RULES=y
+.endif
+
+.if ${.CURDIR:M*/www/nginx*}
+WITH_HTTP_MODULE=y
+# header_more is required for X-F-F
+WITH_HEADERS_MORE_MODULE=y
+WITH_HTTP_STATUS_MODULE=y
+WITH_HTTP_REWRITE_MODULE=y
+WITH_HTTP_SSL_MODULE=y
+.endif
+
+.if ${.CURDIR:M*/java/jdk15}
+WITHOUT_WEB=	Yes
+.endif
+
+.if ${.CURDIR:M*/www/squidguard}
+WITH_LDAP=y
+.endif
+
+.if ${.CURDIR:M*/dns/unbound}
+WITHOUT_GOST=y
+.endif
+
+.if ${.CURDIR:M*/dns/dnscheckengine}
+WITHOUT_MYSQL=y
+.endif
+
+.if ${.CURDIR:M*/textproc/sphinxsearch*}
+WITH_MYSQL=y
+WITH_PGSQL=y
+.endif
+
+.if ${.CURDIR:M*/irc/unreal}
+WITH_SSL=y
+.endif
+
+.if ${.CURDIR:M*/databases/slony1}
+WITH_PERLTOOLS=y
+WITH_PGSQL_VER= 82
+.endif
+
+.if ${.CURDIR:M*/databases/p5-DBD-Pg}
+WITH_PERLTOOLS=y
+WITH_PGSQL_VER= 82
+.endif
+
+.if ${.CURDIR:M*/www/zend-framework}
+WITH_PGSQL=y
+.endif
+
+.if ${.CURDIR:M*/databases/php5-pdo_pgsql}
+WITH_PGSQL_VER=	82
+.endif
+
+.if ${.CURDIR:M*/databases/p5-postgresql-plperl}
+WITH_PGSQL_VER=	82
+.endif
+
+.if ${.CURDIR:M*/databases/p5-Pg}
+WITH_PGSQL_VER=	82
+.endif
+
+.if ${.CURDIR:M*/benchmarks/sysbench}
+WITHOUT_MYSQL=	y
+WITH_POSTGRESQL=	y
+WITH_PGSQL_VER=	82
+.endif
+
+
+MASTER_SITE_PERL_CPAN_BY=  \
+  http://nict.ring.gr.jp/archives/CPAN/%CPANSORT%/%SUBDIR%/ \
+  http://yamanashi.ring.gr.jp/archives/CPAN/%CPANSORT%/%SUBDIR%/ \
+  http://www.ring.gr.jp/archives/CPAN/%CPANSORT%/%SUBDIR%/
+
+MASTER_SITE_XORG=  \
+  http://nict.ring.gr.jp/archives/X/opengroup/%SUBDIR%/ \
+  http://yamanashi.ring.gr.jp/archives/X/opengroup/%SUBDIR%/ \
+  http://www.ring.gr.jp/archives/X/opengroup/%SUBDIR%/
+
+.if ${.CURDIR:M*/net-mgmt/nagios-portaudit}
+WITHOUT_PORTUPGRADE=y
+WITH_PORTAUDIT=y
+.endif
+
+.if ${.CURDIR:M*/net-mgmt/nagios-plugins}
+WITHOUT_QSTAT=true
+WITHOUT_FPING=true
+WITH_NETSNMP=true
+WITHOUT_RADIUS=true
+WITHOUT_MYSQL=true
+WITH_PGSQL=true
+WITH_LDAP=true
+WITH_IPV6=true
+WITHOUT_JAIL=true
+.endif
+
+.if ${.CURDIR:M*/multimedia/ffmpeg} || \
+    ${.CURDIR:M*/multimedia/ffmpeg-devel}
+WITHOUT_AACPLUS=true
+WITHOUT_ALSA=true
+WITH_AMR_NB=true
+WITH_AMR_WB=true
+WITHOUT_CELT=true
+WITHOUT_DIRAC=true
+WITH_FAAC=true
+WITH_FFSERVER=true
+WITH_FREETYPE=true
+WITH_FREI0R=true
+WITH_GSM=true
+WITH_LAME=true
+WITH_OPENCV=true
+WITHOUT_OPENJPEG=true
+WITHOUT_OPTIMIZED_CFLAGS=true
+WITHOUT_RTMP=true
+WITH_SCHROEDINGER=true
+WITHOUT_SDL=true
+WITH_SPEEX=true
+WITH_THEORA=true
+WITHOUT_VAAPI=true
+WITHOUT_VDPAU=true
+WITH_VO_AACENC=true
+WITH_VO_AMRWBENC=true
+WITH_VORBIS=true
+WITH_VP8=true
+WITH_X264=true
+WITH_XVID=true
+.endif
+
+.if ${.CURDIR:M*/lang/ruby18}
+# with -O2, ruby crashes randomly
+CFLAGS=	-O -pipe
+.endif
+
+.if ${.CURDIR:M*/security/sudo}
+# do not depend on gettext, otherwise failing to upgrade gettext would result in broken sudo
+WITHOUT_NLS=y
+.endif
+
+.if ${.CURDIR:M*/www/moodle2}
+WITH_PGSQL=y
+DEFAULT_PGSQL_VER=	82
+WITH_PGSQL_VER=	82
+WITH_LDAP=y
+.endif
+
+.if ${.CURDIR:M*/textproc/lucene}
+WITH_CONTRIB=y
+.endif
+
+.if ${.CURDIR:M*/lang/php5}
+WITH_LINKTHR=y
+.endif
+
+.if ${.CURDIR:M*/net-mgmt/collectd*}
+# let's disable some plugins
+# - we have multiple postgresql clients installed
+# - better to use psql
+WITHOUT_PGSQL=y
+# - we don't need rrdtool output
+# - more dependency like X fonts
+WITHOUT_RRDTOOL=y
+# SNMP is useless
+WITHOUT_SNMP=y
+# better to use smokeping
+WITHOUT_PING=y
+# mbmon is being used by chef already
+WITH_MBMON=y
+WITH_NGINX=y
+WITH_APACHE=y
+# probably useful for third party plugins
+WITH_PYTHON=y
+WITH_DISK=y
+WITH_DEBUG=y
+.endif
+
+.if ${.CURDIR:M*/www/graphite-web*}
+# prefer WSGI implementation to apache
+WITHOUT_APACHE=y
+WITHOUT_MODPYTHON3=y
+WITHOUT_MODWSGI3=y
+WITHOUT_MYSQL=y
+WITH_CARBON=y
+WITH_SQLITE3=y
+.endif
 
 .if ${.CURDIR:M*/sysutils/rubygem-chef}
 WITH_PKGUPGRADE=y
