@@ -1,2 +1,46 @@
 RUBY_DEFAULT_VER=1.9
 RUBY_VER=1.9
+
+apache22_SET="LDAP AUTHNZ_LDAP"
+apr_SET="BDB LDAP"
+
+#
+php5_SET="FPM APACHE LINKTHR"
+
+# header_more is required for X-F-F
+nginx_SET="SSL HTTP_STATUS HTTP_REWRITE HEADERS_MORE"
+
+ffmpeg_SET="AMR_NB AMR_WB FAAC FFSERVER FREETYPE FREI0R GSM LAME OPENCV SCHROEDINGER SPEEX THEORA VO_AACENC VO_AMRWBENC VORBIS VPX X264 XVID"
+
+# do not depend on gettext, otherwise failing to upgrade gettext would result in broken sudo
+sudo_UNSET="NLS"
+
+sysbench_SET="PGSQL"
+sysbench_UNSET="MYSQL"
+
+# XXX moodle2 has gone. which version?
+moodle24_SET="PGSQL LDAP"
+moodle24_UNSET="MYSQL"
+
+lucene_SET="CONTRIB"
+sphinxsearch_SET="MYSQL PGSQL"
+# XXX this does not work (sh does not allow '-' in variable name i.e.UNIQUENAME contains "-")
+# apache22-worker-mpm_SET="PROXY PROXY_HTTP PROXY_BALANCER"
+# ap22-mod_security_SET="SKIP_RULES"
+# zend-framework_SET="PGSQL"
+# nagios-plugins_SET="PGSQL LDAP"
+# graphite-web_SET="CARBON SQLITE3"
+# graphite-web_UNSET="APACHE MODPYTHON3 MODWSGI3 MYSQL"
+# rubygem-chef_SET="PKGUPGRADE"
+#
+#
+# ports that do not use OPTIONSNG
+# - databases/slony1 (WITH_PERLTOOLS)
+# - net-mgmt/nagios-portaudit (WITHOUT_PORTUPGRADE=y)
+# - irc/unreal (WITH_SSL)
+
+# TODO
+# - update www/graphite-web with option NG
+# - java/jdk15 has been removed (linux-sun-jdk16, linux-sun-jdk17, openjdk6, openjdk6-jre or openjdk7)
+# - review -nox11 ports (cairo, ImageMagick, ghostscript7, ghostscript8, ocaml and emacs)
+
