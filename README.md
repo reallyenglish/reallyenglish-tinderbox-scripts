@@ -25,3 +25,38 @@ portstrees
 ----------
 
 install update.sh for each portstree.
+
+env
+---
+
+install ${TBROOT}/scripts/env/etc files.
+
+OptionsNG
+---------
+
+see https://wiki.freebsd.org/Ports/Options/OptionsNG
+
+find out ${UNIQUENAME} for the port.
+
+    > cd $YOURPORTSTREE
+    > make -C www/apache22 -V UNIQUENAME
+    apache22
+
+add your options to env file
+
+    > cd -
+    > vim env/build.9.1-tomoyukis
+    ...
+    > cat env/build.9.1-tomoyukis
+    apache22_SET="LDAP"
+
+if ${UNIQUENAME} contains "-", this does not work. see BUGS section.
+
+BUGS
+====
+
+conditional, or per-port, environment variable is not supported by tinderbox.
+
+when ${UNIQUENAME} contains "-", such as rubygem-foo, there is no way to set
+options for that port.
+
