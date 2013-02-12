@@ -1,3 +1,5 @@
+TINDERBOX_MAKE_CONF="/usr/local/tinderbox/builds/make.conf.9.1-tomoyukis"
+
 RUBY_DEFAULT_VER=1.9
 RUBY_VER=1.9
 
@@ -24,15 +26,6 @@ moodle24_UNSET="MYSQL"
 
 lucene_SET="CONTRIB"
 sphinxsearch_SET="MYSQL PGSQL"
-# XXX this does not work (sh does not allow '-' in variable name i.e.UNIQUENAME contains "-")
-# apache22-worker-mpm_SET="PROXY PROXY_HTTP PROXY_BALANCER"
-# ap22-mod_security_SET="SKIP_RULES"
-# zend-framework_SET="PGSQL"
-# nagios-plugins_SET="PGSQL LDAP"
-# graphite-web_SET="CARBON SQLITE3"
-# graphite-web_UNSET="APACHE MODPYTHON3 MODWSGI3 MYSQL"
-# rubygem-chef_SET="PKGUPGRADE"
-#
 #
 # ports that do not use OPTIONSNG
 # - databases/slony1 (WITH_PERLTOOLS)

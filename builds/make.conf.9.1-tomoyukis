@@ -8,3 +8,12 @@ MASTER_SITE_XORG=  \
   http://yamanashi.ring.gr.jp/archives/X/opengroup/%SUBDIR%/ \
   http://www.ring.gr.jp/archives/X/opengroup/%SUBDIR%/
 
+apache22-worker-mpm_SET=PROXY PROXY_HTTP PROXY_BALANCER
+ap22-mod_security_SET=SKIP_RULES
+zend-framework_SET=PGSQL
+nagios-plugins_SET=PGSQL LDAP
+graphite-web_SET=CARBON SQLITE3
+graphite-web_UNSET=APACHE MODPYTHON3 MODWSGI3 MYSQL
+rubygem-chef_SET=PKGUPGRADE
+
+nagios-plugins_SET=	PGSQL LDAP
