@@ -20,5 +20,7 @@ nagios-plugins_SET=	PGSQL LDAP
 nagios-plugins_SET=PGSQL LDAP
 rubygem-chef_SET=PKGUPGRADE
 zend-framework_SET=PGSQL
+# some of our checks use this
+nrpe2_SET=	ARGS
 
 # vim: ft=make
