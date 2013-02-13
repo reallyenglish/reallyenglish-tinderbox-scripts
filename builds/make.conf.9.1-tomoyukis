@@ -9,7 +9,7 @@ MASTER_SITE_XORG=  \
   http://www.ring.gr.jp/archives/X/opengroup/%SUBDIR%/
 
 # use postgresql92. upgrading to 9.2 is now realistic
-DEFAULT_PGSQL_VER=  92
+WITH_PGSQL_VER=92
 
 # XXX please keep the list sorted
 ap22-mod_security_SET=SKIP_RULES
