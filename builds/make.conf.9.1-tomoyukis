@@ -8,6 +8,9 @@ MASTER_SITE_XORG=  \
   http://yamanashi.ring.gr.jp/archives/X/opengroup/%SUBDIR%/ \
   http://www.ring.gr.jp/archives/X/opengroup/%SUBDIR%/
 
+# use postgresql92. upgrading to 9.2 is now realistic
+DEFAULT_PGSQL_VER=  92
+
 # XXX please keep the list sorted
 ap22-mod_security_SET=SKIP_RULES
 apache22-worker-mpm_SET=PROXY PROXY_HTTP PROXY_BALANCER
