@@ -12,12 +12,17 @@ MASTER_SITE_XORG=	\
 WITH_PGSQL_VER=92
 
 ap22-mod_security_SET=SKIP_RULES
+# enable modules for reverse proxy
+# plain apache: for legacy (PHP, icinga, mod_perl, etc) applications
+# apache22-worker-mpm:	reverse proxy
 apache22-worker-mpm_SET=PROXY PROXY_HTTP PROXY_BALANCER
 graphite-web_SET=CARBON SQLITE3
 graphite-web_UNSET=APACHE MODPYTHON3 MODWSGI3 MYSQL
 nagios-plugins_SET=	PGSQL LDAP
 nagios-plugins_SET=PGSQL LDAP
+# enable our local patch
 rubygem-chef_SET=PKGUPGRADE
+# REMS2
 zend-framework_SET=PGSQL
 # some of our checks use this
 nrpe2_SET=	ARGS
