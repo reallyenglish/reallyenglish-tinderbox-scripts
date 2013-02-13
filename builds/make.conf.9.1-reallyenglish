@@ -1,13 +1,24 @@
-.if ${.CURDIR:M*/sysutils/rubygem-chef}
-WITH_PKGUPGRADE=y
-.endif
+MASTER_SITE_PERL_CPAN_BY=	\
+	http://nict.ring.gr.jp/archives/CPAN/%CPANSORT%/%SUBDIR%/ \
+	http://yamanashi.ring.gr.jp/archives/CPAN/%CPANSORT%/%SUBDIR%/ \
+	http://www.ring.gr.jp/archives/CPAN/%CPANSORT%/%SUBDIR%/
 
-.if ${.CURDIR:M*/www/graphite-web*}
-# prefer WSGI implementation to apache
-WITHOUT_APACHE=y
-WITHOUT_MODPYTHON3=y
-WITHOUT_MODWSGI3=y
-WITHOUT_MYSQL=y
-WITH_CARBON=y
-WITH_SQLITE3=y
-.endif
+MASTER_SITE_XORG=	\
+	http://nict.ring.gr.jp/archives/X/opengroup/%SUBDIR%/ \
+	http://yamanashi.ring.gr.jp/archives/X/opengroup/%SUBDIR%/ \
+	http://www.ring.gr.jp/archives/X/opengroup/%SUBDIR%/
+
+# use postgresql92. upgrading to 9.2 is now realistic
+WITH_PGSQL_VER=92
+
+# XXX please keep the list sorted
+ap22-mod_security_SET=SKIP_RULES
+apache22-worker-mpm_SET=PROXY PROXY_HTTP PROXY_BALANCER
+graphite-web_SET=CARBON SQLITE3
+graphite-web_UNSET=APACHE MODPYTHON3 MODWSGI3 MYSQL
+nagios-plugins_SET=	PGSQL LDAP
+nagios-plugins_SET=PGSQL LDAP
+rubygem-chef_SET=PKGUPGRADE
+zend-framework_SET=PGSQL
+
+# vim: ft=make
