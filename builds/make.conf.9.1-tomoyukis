@@ -19,7 +19,6 @@ apache22-worker-mpm_SET=PROXY PROXY_HTTP PROXY_BALANCER
 graphite-web_SET=CARBON SQLITE3
 graphite-web_UNSET=APACHE MODPYTHON3 MODWSGI3 MYSQL
 nagios-plugins_SET=	PGSQL LDAP
-nagios-plugins_SET=PGSQL LDAP
 # enable our local patch
 rubygem-chef_SET=PKGUPGRADE
 # REMS2
