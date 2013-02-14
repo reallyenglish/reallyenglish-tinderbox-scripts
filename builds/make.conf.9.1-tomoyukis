@@ -19,7 +19,6 @@ apache22-worker-mpm_SET=	PROXY PROXY_HTTP PROXY_BALANCER
 apache22_SET=	LDAP AUTHNZ_LDAP
 # AUTHNZ_LDAP requires apr with LDAP
 apr_SET=	BDB LDAP
-ap22-mod_security_SET=SKIP_RULES
 
 # prefer apache22-worker-mpm where possible because prefork has been
 # problematic for us (fork cost, memory hog, etc)
