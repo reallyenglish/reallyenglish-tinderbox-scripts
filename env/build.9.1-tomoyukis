@@ -3,10 +3,6 @@ TINDERBOX_MAKE_CONF="/usr/local/tinderbox/builds/make.conf.9.1-tomoyukis"
 RUBY_DEFAULT_VER=1.9
 RUBY_VER=1.9
 
-apache22_SET="LDAP AUTHNZ_LDAP"
-apr_SET="BDB LDAP"
-
-#
 php5_SET="FPM APACHE LINKTHR"
 
 # header_more is required for X-F-F
