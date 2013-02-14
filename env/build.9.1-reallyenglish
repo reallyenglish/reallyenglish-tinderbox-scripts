@@ -1,4 +1,4 @@
-TINDERBOX_MAKE_CONF="/usr/local/tinderbox/builds/make.conf.9.1-tomoyukis"
+TINDERBOX_MAKE_CONF="/usr/local/tinderbox/builds/make.conf.9.1-reallyenglish"
 
 RUBY_DEFAULT_VER=1.9
 RUBY_VER=1.9
