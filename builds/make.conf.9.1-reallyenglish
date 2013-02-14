@@ -11,11 +11,16 @@ MASTER_SITE_XORG=	\
 # use postgresql92. upgrading to 9.2 is now realistic
 WITH_PGSQL_VER=92
 
-ap22-mod_security_SET=SKIP_RULES
 # enable modules for reverse proxy
 # plain apache: for legacy (PHP, icinga, mod_perl, etc) applications
 # apache22-worker-mpm:	reverse proxy
-apache22-worker-mpm_SET=PROXY PROXY_HTTP PROXY_BALANCER
+apache22-worker-mpm_SET=	PROXY PROXY_HTTP PROXY_BALANCER
+# LDAP is used for authentication
+apache22_SET=	LDAP AUTHNZ_LDAP
+# AUTHNZ_LDAP requires apr with LDAP
+apr_SET=	BDB LDAP
+ap22-mod_security_SET=SKIP_RULES
+
 graphite-web_SET=CARBON SQLITE3
 graphite-web_UNSET=APACHE MODPYTHON3 MODWSGI3 MYSQL
 nagios-plugins_SET=	PGSQL LDAP
