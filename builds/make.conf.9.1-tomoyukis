@@ -20,6 +20,9 @@ apache22_SET=	LDAP AUTHNZ_LDAP
 # AUTHNZ_LDAP requires apr with LDAP
 apr_SET=	BDB LDAP
 
+# header_more is required for X-F-F
+nginx_SET=	SSL HTTP_STATUS HTTP_REWRITE HEADERS_MORE
+
 # prefer apache22-worker-mpm where possible because prefork has been
 # problematic for us (fork cost, memory hog, etc)
 .if ${.CURDIR:M*/lang/php5} || \
@@ -30,6 +33,10 @@ APACHE_PORT=	www/apache22
 # always prefer apache22 worker
 APACHE_PORT=	www/apache22-worker-mpm
 .endif
+
+# do not depend on gettext, otherwise failing to upgrade gettext would result
+# in broken sudo
+sudo_UNSET=	NLS
 
 # FPM: currently not used but hopefully, it would be possible to remove
 # dependency on apache
@@ -87,11 +94,39 @@ nagios-plugins_SET=	PGSQL LDAP
 libdbi-drivers_SET=	PGSQL
 libdbi-drivers_UNSET=	MYSQL
 
+sysbench_SET=	PGSQL
+sysbench_UNSET=	MYSQL
+
+sphinxsearch_SET=	PGSQL SYSLOG
+sphinxsearch_UNSET=	MYSQL
 # enable our local patch
 rubygem-chef_SET=PKGUPGRADE
 # REMS2
 zend-framework_SET=PGSQL
 # some of our checks use this
 nrpe2_SET=	ARGS
+
+# we do not use portupgrade
+nagios-portaudit_SET=	PORTAUDIT
+nagios-portaudit_UNSET=	PORTUPGRADE
+
+# ports that still do not support OptionNG
+.if ${.CURDIR:M*/irc/unreal}
+WITH_SSL=y
+.endif
+
+.if ${.CURDIR:M*/databases/slony1}
+WITH_PERLTOOLS=y
+.endif
+
+.if ${.CURDIR:M*/www/moodle2*}
+WITH_PGSQL=y
+WITH_LDAP=y
+.endif
+
+.if ${.CURDIR:M*/textproc/lucene*}
+WITH_CONTRIB=y
+.endif
+
 
 # vim: ft=make
