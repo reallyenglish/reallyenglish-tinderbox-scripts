@@ -47,9 +47,8 @@ php5_SET=	FPM APACHE LINKTHR
 # databases/php5-mysqli
 # databases/php5-pdo
 # databases/php5-pdo_pgsql
-# databases/php5-pdo_sqlite3
+# databases/php5-pdo_sqlite
 # databases/php5-pgsql
-# databases/php5-sqlite
 # databases/php5-sqlite3
 # devel/php5-json
 # devel/php5-tokenizer
