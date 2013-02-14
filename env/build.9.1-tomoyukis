@@ -3,8 +3,6 @@ TINDERBOX_MAKE_CONF="/usr/local/tinderbox/builds/make.conf.9.1-tomoyukis"
 RUBY_DEFAULT_VER=1.9
 RUBY_VER=1.9
 
-php5_SET="FPM APACHE LINKTHR"
-
 # header_more is required for X-F-F
 nginx_SET="SSL HTTP_STATUS HTTP_REWRITE HEADERS_MORE"
 
