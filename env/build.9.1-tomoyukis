@@ -6,8 +6,6 @@ RUBY_VER=1.9
 # header_more is required for X-F-F
 nginx_SET="SSL HTTP_STATUS HTTP_REWRITE HEADERS_MORE"
 
-ffmpeg_SET="AMR_NB AMR_WB FAAC FFSERVER FREETYPE FREI0R GSM LAME OPENCV SCHROEDINGER SPEEX THEORA VO_AACENC VO_AMRWBENC VORBIS VPX X264 XVID"
-
 # do not depend on gettext, otherwise failing to upgrade gettext would result in broken sudo
 sudo_UNSET="NLS"
 
