@@ -91,7 +91,7 @@ smokeping_SET=	DNS
 
 graphite-web_SET=CARBON SQLITE3
 graphite-web_UNSET=APACHE MODPYTHON3 MODWSGI3 MYSQL
-nagios-plugins_SET=	PGSQL LDAP
+nagios-plugins_SET=	PGSQL LDAP NETSNMP
 
 # we do not use MySQL. even if we did, libdbi is rarely used
 libdbi-drivers_SET=	PGSQL
