@@ -91,7 +91,15 @@ smokeping_SET=	DNS
 
 graphite-web_SET=CARBON SQLITE3
 graphite-web_UNSET=APACHE MODPYTHON3 MODWSGI3 MYSQL
-nagios-plugins_SET=	PGSQL LDAP NETSNMP
+
+# i don't want to install many packages on every node as dependency.
+# PGSQL:	check_pgsql is useless. check_postgres, which uses psql, is much
+# better and does not require libpq
+# LDAP:	not necessary on clients
+# NETSNMP:	same as above
+#
+# TODO these OPTIONS are required on icinga server (use ports?)
+nagios-plugins_SET=
 
 # we do not use MySQL. even if we did, libdbi is rarely used
 libdbi-drivers_SET=	PGSQL
