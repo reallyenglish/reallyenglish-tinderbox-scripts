@@ -121,6 +121,10 @@ nrpe2_SET=	ARGS
 nagios-portaudit_SET=	PORTAUDIT
 nagios-portaudit_UNSET=	PORTUPGRADE
 
+# virtualbox is used with phpvirtualbox and no x11
+virtualbox-ose_SET=	UDPTUNNEL VDE VNC WEBSERVICE
+virtualbox-ose_UNSET=	DBUS DEBUG GUESTADDITIONS NLS PULSEAUDIO QT4 X11
+
 # ports that still do not support OptionNG
 .if ${.CURDIR:M*/irc/unreal}
 WITH_SSL=y
