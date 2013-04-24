@@ -143,5 +143,8 @@ WITH_LDAP=y
 WITH_CONTRIB=y
 .endif
 
+.if ${.CURDIR:M*/databases/postgresql82-*}
+WITH_PGSQL_VER=82
+.endif
 
 # vim: ft=make
