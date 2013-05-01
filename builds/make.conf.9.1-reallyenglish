@@ -144,8 +144,12 @@ WITH_LDAP=y
 WITH_CONTRIB=y
 .endif
 
-.if ${.CURDIR:M*/databases/postgresql82-*}
+.if ${.CURDIR:M*/databases/postgresql82-*} || \
+  ${.CURDIR:M*/databases/skytools} || \
+  ${.CURDIR:M*/databases/p5-Pg} || \
+  ${.CURDIR:M*/databases/p5-DBD-Pg}
 WITH_PGSQL_VER=82
+DEFAULT_PGSQL_VER=82
 .endif
 
 # vim: ft=make
