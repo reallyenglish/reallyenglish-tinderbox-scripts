@@ -21,7 +21,7 @@ apache22_SET=	LDAP AUTHNZ_LDAP
 apr_SET=	BDB LDAP
 
 # header_more is required for X-F-F
-nginx_SET=	SSL HTTP_STATUS HTTP_REWRITE HEADERS_MORE LUA
+nginx_SET=	SSL HTTP_STATUS HTTP_REWRITE HEADERS_MORE
 
 # prefer apache22-worker-mpm where possible because prefork has been
 # problematic for us (fork cost, memory hog, etc)
@@ -143,6 +143,7 @@ WITH_LDAP=y
 .if ${.CURDIR:M*/textproc/lucene*}
 WITH_CONTRIB=y
 .endif
+
 
 .if ${.CURDIR:M*/databases/postgresql82-*} || \
   ${.CURDIR:M*/databases/skytools} || \
