@@ -1,0 +1,10 @@
+TINDERBOX_MAKE_CONF="/usr/local/tinderbox/builds/make.conf.9.1-ochkol"
+
+RUBY_DEFAULT_VER=1.9
+RUBY_VER=1.9
+
+# TODO
+# - update www/graphite-web with option NG
+# - java/jdk15 has been removed (linux-sun-jdk16, linux-sun-jdk17, openjdk6, openjdk6-jre or openjdk7)
+# - review -nox11 ports (cairo, ImageMagick, ghostscript7, ghostscript8, ocaml and emacs)
+
