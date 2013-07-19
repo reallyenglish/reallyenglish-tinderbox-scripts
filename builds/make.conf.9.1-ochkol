@@ -153,4 +153,9 @@ WITH_PGSQL_VER=82
 DEFAULT_PGSQL_VER=82
 .endif
 
+.if ${.CURDIR:M*/databases/postgresql93-*}
+WITH_PGSQL_VER=93
+DEFAULT_PGSQL_VER=93
+.endif
+
 # vim: ft=make
