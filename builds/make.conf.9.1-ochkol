@@ -1,0 +1,156 @@
+MASTER_SITE_PERL_CPAN_BY=	\
+	http://nict.ring.gr.jp/archives/CPAN/%CPANSORT%/%SUBDIR%/ \
+	http://yamanashi.ring.gr.jp/archives/CPAN/%CPANSORT%/%SUBDIR%/ \
+	http://www.ring.gr.jp/archives/CPAN/%CPANSORT%/%SUBDIR%/
+
+MASTER_SITE_XORG=	\
+	http://nict.ring.gr.jp/archives/X/opengroup/%SUBDIR%/ \
+	http://yamanashi.ring.gr.jp/archives/X/opengroup/%SUBDIR%/ \
+	http://www.ring.gr.jp/archives/X/opengroup/%SUBDIR%/
+
+# use postgresql92. upgrading to 9.2 is now realistic
+WITH_PGSQL_VER=92
+
+# enable modules for reverse proxy
+# plain apache: for legacy (PHP, icinga, mod_perl, etc) applications
+# apache22-worker-mpm:	reverse proxy
+apache22-worker-mpm_SET=	PROXY PROXY_HTTP PROXY_BALANCER
+# LDAP is used for authentication
+apache22_SET=	LDAP AUTHNZ_LDAP
+# AUTHNZ_LDAP requires apr with LDAP
+apr_SET=	BDB LDAP
+
+# header_more is required for X-F-F
+nginx_SET=	HTTP_SSL HTTP_STATUS HTTP_REWRITE HEADERS_MORE LUA
+
+# prefer apache22-worker-mpm where possible because prefork has been
+# problematic for us (fork cost, memory hog, etc)
+.if ${.CURDIR:M*/lang/php5} || \
+    ${.CURDIR:M*/lang/php4}
+# php is not thread-safe
+APACHE_PORT=	www/apache22
+.else
+# always prefer apache22 worker
+APACHE_PORT=	www/apache22-worker-mpm
+.endif
+
+# do not depend on gettext, otherwise failing to upgrade gettext would result
+# in broken sudo
+sudo_UNSET=	NLS
+
+# FPM: currently not used but hopefully, it would be possible to remove
+# dependency on apache
+# APACHE: use www/apache22 (see below)
+# LINKTHR: without this, threadded modules will not work
+php5_SET=	FPM APACHE LINKTHR
+
+# a list of php5 modules built on build82 (./tc listPorts | grep php5 | sort)
+# archivers/php5-zip
+# chinese/php5-cconv
+# converters/php5-iconv
+# converters/php5-mbstring
+# databases/php5-mysql
+# databases/php5-mysqli
+# databases/php5-pdo
+# databases/php5-pdo_pgsql
+# databases/php5-pdo_sqlite
+# databases/php5-pgsql
+# databases/php5-sqlite3
+# devel/php5-json
+# devel/php5-tokenizer
+# ftp/php5-curl
+# graphics/php5-ffmpeg
+# graphics/php5-gd
+# lang/php5-extensions
+# net-mgmt/php5-snmp
+# net/php5-ldap
+# net/php5-soap
+# net/php5-sockets
+# net/php5-xmlrpc
+# security/php5-filter
+# security/php5-hash
+# security/php5-mcrypt
+# security/php5-openssl
+# sysutils/php5-fileinfo
+# sysutils/php5-posix
+# textproc/php5-ctype
+# textproc/php5-dom
+# textproc/php5-simplexml
+# textproc/php5-wddx
+# textproc/php5-xml
+# textproc/php5-xmlreader
+# textproc/php5-xmlwriter
+# textproc/php5-xsl
+# www/newrelic-php5
+# www/php5-session
+
+ffmpeg_SET=	AMR_NB AMR_WB FAAC FFSERVER FREETYPE FREI0R GSM LAME OPENCV SCHROEDINGER SPEEX THEORA VO_AACENC VO_AMRWBENC VORBIS VPX X264 XVID
+ffmpeg-devel_SET=	AMR_NB AMR_WB FAAC FFSERVER FREETYPE FREI0R GSM LAME OPENCV SCHROEDINGER SPEEX THEORA VO_AACENC VO_AMRWBENC VORBIS VPX X264 XVID
+
+# our smokeping monitors DNS as well
+smokeping_SET=	DNS
+
+graphite-web_SET=CARBON SQLITE3
+graphite-web_UNSET=APACHE MODPYTHON3 MODWSGI3 MYSQL
+
+# i don't want to install many packages on every node as dependency.
+# PGSQL:	check_pgsql is useless. check_postgres, which uses psql, is much
+# better and does not require libpq
+# LDAP:	not necessary on clients
+# NETSNMP:	same as above
+#
+# TODO these OPTIONS are required on icinga server (use ports?)
+nagios-plugins_SET=
+
+# we do not use MySQL. even if we did, libdbi is rarely used
+libdbi-drivers_SET=	PGSQL
+libdbi-drivers_UNSET=	MYSQL
+
+sysbench_SET=	PGSQL
+sysbench_UNSET=	MYSQL
+
+sphinxsearch_SET=	PGSQL SYSLOG
+sphinxsearch_UNSET=	MYSQL
+# enable our local patch
+rubygem-chef_SET=PKGUPGRADE
+# REMS2
+zend-framework_SET=PGSQL
+# some of our checks use this
+nrpe2_SET=	ARGS
+
+# we do not use portupgrade
+nagios-portaudit_SET=	PORTAUDIT
+nagios-portaudit_UNSET=	PORTUPGRADE
+
+# virtualbox is used with phpvirtualbox and no x11
+virtualbox-ose_SET=	UDPTUNNEL VDE VNC WEBSERVICE
+virtualbox-ose_UNSET=	DBUS DEBUG GUESTADDITIONS NLS PULSEAUDIO QT4 X11
+
+# ports that still do not support OptionNG
+.if ${.CURDIR:M*/irc/unreal}
+WITH_SSL=y
+.endif
+
+.if ${.CURDIR:M*/databases/slony1}
+WITH_PERLTOOLS=y
+.endif
+
+.if ${.CURDIR:M*/www/moodle2*}
+WITH_PGSQL=y
+WITH_LDAP=y
+.endif
+
+.if ${.CURDIR:M*/textproc/lucene*}
+WITH_CONTRIB=y
+.endif
+
+.if ${.CURDIR:M*/databases/postgresql82-*} || \
+  ${.CURDIR:M*/databases/skytools} || \
+  ${.CURDIR:M*/databases/p5-Pg} || \
+  ${.CURDIR:M*/databases/p5-DBD-Pg} || \
+  ${.CURDIR:M*/databases/pgmecab}
+WITH_PGSQL_VER=82
+DEFAULT_PGSQL_VER=82
+.endif
+
+# vim: ft=make
