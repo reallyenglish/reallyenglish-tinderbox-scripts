@@ -21,7 +21,7 @@ apache22_SET=	LDAP AUTHNZ_LDAP
 apr_SET=	BDB LDAP
 
 # header_more is required for X-F-F
-nginx_SET=	SSL HTTP_STATUS HTTP_REWRITE HEADERS_MORE
+nginx_SET=	HTTP_SSL HTTP_STATUS HTTP_REWRITE HEADERS_MORE LUA
 
 # prefer apache22-worker-mpm where possible because prefork has been
 # problematic for us (fork cost, memory hog, etc)
@@ -85,6 +85,7 @@ php5_SET=	FPM APACHE LINKTHR
 # www/php5-session
 
 ffmpeg_SET=	AMR_NB AMR_WB FAAC FFSERVER FREETYPE FREI0R GSM LAME OPENCV SCHROEDINGER SPEEX THEORA VO_AACENC VO_AMRWBENC VORBIS VPX X264 XVID
+ffmpeg-devel_SET=	AMR_NB AMR_WB FAAC FFSERVER FREETYPE FREI0R GSM LAME OPENCV SCHROEDINGER SPEEX THEORA VO_AACENC VO_AMRWBENC VORBIS VPX X264 XVID
 
 # our smokeping monitors DNS as well
 smokeping_SET=	DNS
@@ -121,6 +122,10 @@ nrpe2_SET=	ARGS
 nagios-portaudit_SET=	PORTAUDIT
 nagios-portaudit_UNSET=	PORTUPGRADE
 
+# virtualbox is used with phpvirtualbox and no x11
+virtualbox-ose_SET=	UDPTUNNEL VDE VNC WEBSERVICE
+virtualbox-ose_UNSET=	DBUS DEBUG GUESTADDITIONS NLS PULSEAUDIO QT4 X11
+
 # ports that still do not support OptionNG
 .if ${.CURDIR:M*/irc/unreal}
 WITH_SSL=y
@@ -139,5 +144,18 @@ WITH_LDAP=y
 WITH_CONTRIB=y
 .endif
 
+.if ${.CURDIR:M*/databases/postgresql82-*} || \
+  ${.CURDIR:M*/databases/skytools} || \
+  ${.CURDIR:M*/databases/p5-Pg} || \
+  ${.CURDIR:M*/databases/p5-DBD-Pg} || \
+  ${.CURDIR:M*/databases/pgmecab}
+WITH_PGSQL_VER=82
+DEFAULT_PGSQL_VER=82
+.endif
+
+.if ${.CURDIR:M*/databases/postgresql93-*}
+WITH_PGSQL_VER=93
+DEFAULT_PGSQL_VER=93
+.endif
 
 # vim: ft=make
