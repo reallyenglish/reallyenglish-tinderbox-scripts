@@ -148,6 +148,7 @@ WITH_CONTRIB=y
   ${.CURDIR:M*/databases/skytools} || \
   ${.CURDIR:M*/databases/p5-Pg} || \
   ${.CURDIR:M*/databases/p5-DBD-Pg} || \
+  ${.CURDIR:M*/databases/py-psycopg2} || \
   ${.CURDIR:M*/databases/pgmecab}
 WITH_PGSQL_VER=82
 DEFAULT_PGSQL_VER=82
