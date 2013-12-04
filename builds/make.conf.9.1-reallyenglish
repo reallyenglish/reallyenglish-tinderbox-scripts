@@ -163,4 +163,7 @@ WITH_PGSQL_VER=93
 DEFAULT_PGSQL_VER=93
 .endif
 
+.if ${.CURDIR:M*/net-mgmt/sensu-community-plugins*}
+SENSU_ETC_DIR=	sensu/etc
+.endif
 # vim: ft=make
