@@ -83,6 +83,9 @@ php5_SET=	FPM APACHE LINKTHR
 # textproc/php5-xsl
 # www/newrelic-php5
 # www/php5-session
+#
+# and without php5- prefix
+# www/eaccelerator
 
 ffmpeg_SET=	AMR_NB AMR_WB FAAC FFSERVER FREETYPE FREI0R GSM LAME OPENCV SCHROEDINGER SPEEX THEORA VO_AACENC VO_AMRWBENC VORBIS VPX X264 XVID
 ffmpeg-devel_SET=	AMR_NB AMR_WB FAAC FFSERVER FREETYPE FREI0R GSM LAME OPENCV SCHROEDINGER SPEEX THEORA VO_AACENC VO_AMRWBENC VORBIS VPX X264 XVID
@@ -154,9 +157,13 @@ WITH_PGSQL_VER=82
 DEFAULT_PGSQL_VER=82
 .endif
 
-.if ${.CURDIR:M*/databases/postgresql93-*}
+.if ${.CURDIR:M*/databases/postgresql93-*} || \
+    ${.CURDIR:M*/databases/pgpool-II-33}
 WITH_PGSQL_VER=93
 DEFAULT_PGSQL_VER=93
 .endif
 
+.if ${.CURDIR:M*/net-mgmt/sensu-community-plugins*}
+SENSU_ETC_DIR=	sensu/etc
+.endif
 # vim: ft=make
