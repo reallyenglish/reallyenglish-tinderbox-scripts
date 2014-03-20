@@ -66,7 +66,8 @@ else
                 [ -f ${ENV_DIR}/build.9.1-reallyenglish ] && . ${ENV_DIR}/build.9.1-reallyenglish; \
                 [ -f ${ENV_DIR}/portstree.reallyenglish ] && . ${ENV_DIR}/reallyenglish; \
                 [ -f ${ENV_DIR}/GLOBAL ]                  && . ${ENV_DIR}/GLOBAL; echo ${RUBY_VER}; \
-                make -C ${PORTSTREE} index \
+                ${TB_ROOT}/9.1-reallyenglish/usr/bin/make -C ${PORTSTREE} index \
+                    OSVERSION=901000 \
                     INDEX_JOBS=${INDEX_JOBS} \
                     __MAKE_CONF=${TB_ROOT}/builds/make.conf.${BUILD} \
                     PORTSDIR=${PORTSTREE} \
