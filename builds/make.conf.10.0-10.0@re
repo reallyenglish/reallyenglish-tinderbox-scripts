@@ -1,0 +1,15 @@
+# prefer faster mirrors
+MASTER_SITE_PERL_CPAN_BY=	\
+	http://yamanashi.ring.gr.jp/archives/CPAN/%CPANSORT%/%SUBDIR%/ \
+	http://www.ring.gr.jp/archives/CPAN/%CPANSORT%/%SUBDIR%/
+
+MASTER_SITE_XORG=	\
+	http://yamanashi.ring.gr.jp/archives/X/opengroup/%SUBDIR%/ \
+	http://www.ring.gr.jp/archives/X/opengroup/%SUBDIR%/
+
+# pgdb[12] is now 9.3
+WITH_PGSQL_VER=93
+
+# do not depend on gettext, otherwise failing to upgrade gettext would result
+# in broken sudo
+sudo_UNSET=	NLS INSULTS
