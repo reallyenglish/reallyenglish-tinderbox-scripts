@@ -13,3 +13,12 @@ WITH_PGSQL_VER=93
 # do not depend on gettext, otherwise failing to upgrade gettext would result
 # in broken sudo
 sudo_UNSET=	NLS INSULTS
+
+# enable modules for reverse proxy
+# plain apache: for legacy (PHP, icinga, mod_perl, etc) applications
+# apache22-worker-mpm:	reverse proxy
+apache22-worker-mpm_SET=	PROXY PROXY_HTTP PROXY_BALANCER
+# LDAP is used for authentication
+apache22_SET=	LDAP AUTHNZ_LDAP
+# AUTHNZ_LDAP requires apr with LDAP
+apr_SET=	BDB LDAP
