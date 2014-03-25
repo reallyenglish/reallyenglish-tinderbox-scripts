@@ -129,6 +129,10 @@ nagios-portaudit_UNSET=	PORTUPGRADE
 virtualbox-ose_SET=	UDPTUNNEL VDE VNC WEBSERVICE
 virtualbox-ose_UNSET=	DBUS DEBUG GUESTADDITIONS NLS PULSEAUDIO QT4 X11
 
+# unrealircd does not run with ipv6
+Unreal_SET=	DOCS HUB SSL
+Unreal_UNSET=	IPV6
+
 # ports that still do not support OptionNG
 .if ${.CURDIR:M*/irc/unreal}
 WITH_SSL=y
