@@ -122,3 +122,7 @@ sysbench_UNSET=	MYSQL
 sphinxsearch_SET=	PGSQL SYSLOG
 sphinxsearch_UNSET=	MYSQL
 
+.if ${.CURDIR:M*/ports-mgmt/tinderbox}
+tinderbox_SET=  PGSQL
+tinderbox_UNSET=    MYSQL
+.endif
