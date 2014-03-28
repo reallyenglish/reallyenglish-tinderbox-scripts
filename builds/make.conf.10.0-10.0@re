@@ -1,3 +1,5 @@
+DEFAULT_VERSIONS=   ruby=2.1 pgsql=9.3
+
 # prefer faster mirrors
 MASTER_SITE_PERL_CPAN_BY=	\
 	http://yamanashi.ring.gr.jp/archives/CPAN/%CPANSORT%/%SUBDIR%/ \
@@ -7,13 +9,6 @@ MASTER_SITE_XORG=	\
 	http://yamanashi.ring.gr.jp/archives/X/opengroup/%SUBDIR%/ \
 	http://www.ring.gr.jp/archives/X/opengroup/%SUBDIR%/
 
-# pgdb[12] is now 9.3
-WITH_PGSQL_VER=93
-
-# do not depend on gettext, otherwise failing to upgrade gettext would result
-# in broken sudo
-sudo_UNSET=	NLS INSULTS
-
 # enable modules for reverse proxy
 # plain apache: for legacy (PHP, icinga, mod_perl, etc) applications
 # apache22-worker-mpm:	reverse proxy
@@ -22,7 +17,7 @@ apache22-worker-mpm_SET=	PROXY PROXY_HTTP PROXY_BALANCER
 apache22_SET=	LDAP AUTHNZ_LDAP
 # AUTHNZ_LDAP requires apr with LDAP
 apr_SET=	BDB LDAP
-#
+
 # header_more is required for X-F-F
 nginx_SET=	HTTP_SSL HTTP_STATUS HTTP_REWRITE HEADERS_MORE LUA
 
@@ -30,6 +25,7 @@ nginx_SET=	HTTP_SSL HTTP_STATUS HTTP_REWRITE HEADERS_MORE LUA
 # problematic for us (fork cost, memory hog, etc)
 .if ${.CURDIR:M*/lang/php5} || \
     ${.CURDIR:M*/lang/php4} || \
+    ${.CURDIR:M*/www/moodle*} || \
     ${.CURDIR:M*/ports-mgmt/tinderbox}
 # php is not thread-safe
 APACHE_PORT=	www/apache22
@@ -37,6 +33,10 @@ APACHE_PORT=	www/apache22
 # always prefer apache22 worker
 APACHE_PORT=	www/apache22-worker-mpm
 .endif
+
+# do not depend on gettext, otherwise failing to upgrade gettext would result
+# in broken sudo
+sudo_UNSET=	NLS INSULTS
 
 # FPM: currently not used but hopefully, it would be possible to remove
 # dependency on apache
@@ -121,8 +121,29 @@ sysbench_UNSET=	MYSQL
 
 sphinxsearch_SET=	PGSQL SYSLOG
 sphinxsearch_UNSET=	MYSQL
+#
+# REMS2
+zend-framework_SET=PGSQL
 
-.if ${.CURDIR:M*/ports-mgmt/tinderbox}
+# some of our checks use this
+nrpe2_SET=	ARGS
+
+# we do not use portupgrade
+nagios-portaudit_SET=	PORTAUDIT
+nagios-portaudit_UNSET=	PORTUPGRADE
+
 tinderbox_SET=  PGSQL
 tinderbox_UNSET=    MYSQL
-.endif
+
+# virtualbox is used with phpvirtualbox and no x11
+virtualbox-ose_SET=	UDPTUNNEL VDE VNC WEBSERVICE
+virtualbox-ose_UNSET=	DBUS DEBUG GUESTADDITIONS NLS PULSEAUDIO QT4 X11 PYTHON VPX
+
+Unreal_SET=	DOCS HUB SSL
+Unreal_UNSET=	IPV6
+
+moodle_SET= PGSQL LDAP
+
+lucene_SET= CONTRIB
+
+# vim: ft=make
