@@ -1,5 +1,4 @@
-RUBY_DEFAULT_VER=2.1
-RUBY_VER=2.1
+DEFAULT_VERSIONS=ruby=2.1
 
 # TODO
 # - update www/graphite-web with option NG
