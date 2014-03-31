@@ -27,7 +27,10 @@ nginx_SET=	HTTP_SSL HTTP_STATUS HTTP_REWRITE HEADERS_MORE LUA
 # problematic for us (fork cost, memory hog, etc)
 .if ${.CURDIR:M*/lang/php5} || \
     ${.CURDIR:M*/lang/php4} || \
-    ${.CURDIR:M*/www/mod_perl2}
+    ${.CURDIR:M*/www/mod_perl2} || \
+    ${.CURDIR:M*/www/rt38} || \
+    ${.CURDIR:M*/www/p5-Apache-DBI} || \
+    ${.CURDIR:M*/www/p5-libapreq2}
 # php is not thread-safe
 APACHE_PORT=	www/apache22
 .else
