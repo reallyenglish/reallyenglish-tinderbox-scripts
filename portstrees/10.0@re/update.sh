@@ -54,34 +54,4 @@ if [ ! -d ${PORTSTREE} ]; then
 else
     mylog "checking out branch ${GIT_BRANCH} and pull"
     cd ${PORTSTREE} && /usr/local/bin/git checkout ${GIT_BRANCH} && /usr/local/bin/git pull
-
-    mylog "creating INDEX file for each build using branch ${GIT_BRANCH}"
-    ALL_BUILDS=$( listBuilds )
-    for BUILD in ${ALL_BUILDS}; do
-        _PORTSTREE=${BUILD#*-}
-        mylog "processing ${BUILD}, ${_PORTSTREE}"
-        if [ x${_PORTSTREE} == x"${GIT_BRANCH}" ]; then
-            mylog "${BUILD} is using branch ${GIT_BRANCH}"
-            if [ -d ${TB_ROOT}/packages/${BUILD} ]; then
-                # use "-a" to export all variables in env files
-                sh -a -c "
-                [ -f ${ENV_DIR}/build.${BUILD_NAME}-${GIT_BRANCH} ] && . ${ENV_DIR}/build.${BUILD_NAME}-${GIT_BRANCH}; \
-                [ -f ${ENV_DIR}/portstree.${GIT_BRANCH} ] && . ${ENV_DIR}/${GIT_BRANCH}; \
-                [ -f ${ENV_DIR}/GLOBAL ]                  && . ${ENV_DIR}/GLOBAL; echo ${RUBY_VER}; \
-                make -C ${PORTSTREE} index \
-                    INDEX_JOBS=${INDEX_JOBS} \
-                    __MAKE_CONF=${TB_ROOT}/builds/make.conf.${BUILD} \
-                    PORTSDIR=${PORTSTREE} \
-                    INDEXDIR=${TB_ROOT}/packages/${BUILD}
-                "
-                # XXX INDEX-10 is hard-coded here. when you build packages for other major version, you need to define INDEXFILE
-                cp ${TB_ROOT}/packages/${BUILD}/INDEX-10 ${TB_ROOT}/packages/${BUILD}/INDEX
-                bzip2 -k -f ${TB_ROOT}/packages/${BUILD}/INDEX
-            else
-                mylog "but ${BUILD} does not have package directory (${TB_ROOT}/packages/${BUILD})"
-            fi
-        else
-            mylog "${BUILD} is not using branch ${GIT_BRANCH}"
-        fi
-    done
 fi
