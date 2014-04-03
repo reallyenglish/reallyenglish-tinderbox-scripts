@@ -137,6 +137,9 @@ virtualbox-ose_UNSET=	DBUS DEBUG GUESTADDITIONS NLS PULSEAUDIO QT4 X11
 Unreal_SET=	DOCS HUB SSL
 Unreal_UNSET=	IPV6
 
+# enable ldap for racktables
+racktables_SET=	LDAP
+
 # ports that still do not support OptionNG
 .if ${.CURDIR:M*/irc/unreal}
 WITH_SSL=y
