@@ -138,6 +138,9 @@ Unreal_UNSET=	IPV6
 # enable ldap for racktables
 racktables_SET=	LDAP
 
+# integrate mailman with postfix
+mailman_SET=	MTA POSTFIX
+
 # ports that still do not support OptionNG
 .if ${.CURDIR:M*/irc/unreal}
 WITH_SSL=y
