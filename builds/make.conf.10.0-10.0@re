@@ -23,8 +23,7 @@ nginx_SET=	HTTP_SSL HTTP_STATUS HTTP_REWRITE HEADERS_MORE LUA
 
 # prefer apache22-worker-mpm where possible because prefork has been
 # problematic for us (fork cost, memory hog, etc)
-.if ${.CURDIR:M*/lang/php5} || \
-    ${.CURDIR:M*/lang/php4} || \
+.if ${.CURDIR:M*/www/mod_php5*} || \
     ${.CURDIR:M*/www/moodle*} || \
     ${.CURDIR:M*/ports-mgmt/tinderbox}
 # php is not thread-safe
