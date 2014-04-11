@@ -10,6 +10,7 @@ HOOKS=	postBuildExtract \
 	preJailUpdate \
 	prePortBuild \
 	prePortChecksum \
+	preAddPort \
 	prePortsTreeUpdate
 
 all:	install_dir

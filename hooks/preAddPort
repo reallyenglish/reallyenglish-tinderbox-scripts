@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# Name       : preAddPort
+# Command    : 
+# Description:
+# Hook to run before adding a port to a Build within the datastore.
+# If this command returns a non-zero value, the port will not be added to the specified Build.
+# The following environment will be passed to the hook command:
+# 	BUILD : Build name for which this port is being added
+#	PORTDIR : Port directory being added
+#	OPTIONS : 1 if OPTIONS should be used during the addPort operation; 0 otherwise
+# 	NORECURSE : -R if no recursion is to be used; the empty string otherwise
+#	CLEANOPTIONS : 1 if rmconfig is to be done prior to using OPTIONS; 0 otherwise
+# 	PB : Tinderbox root
+
+MYNAME=$0
+MAKE_CONF="${PB}/builds/make.conf.${BUILD}"
+# /usr/local/tinderbox/9.1-reallyenglish/etc/make.conf
+logger -t "${MYNAME}" "copying make.conf from ${MAKE_CONF} to ${PB}/${BUILD}/etc/make.conf (if any)"
+if [ -f ${MAKE_CONF} ]; then
+    cp ${MAKE_CONF} ${DESTDIR}/etc/make.conf || exit 1
+fi
+

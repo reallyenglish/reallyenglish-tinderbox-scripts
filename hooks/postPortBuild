@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# after building package, create files for pkg(8). without these files, pkg(8) would not be able to find new package.
+set -e
+MYNAME=$0
+
+DIR="${PB}/packages/${BUILD}/All"
+logger -t "${MYNAME}" -- "the package directory is ${DIR}"
+cd "${DIR}"
+logger -t "${MYNAME}" -- "creating pkg(8) repository files"
+pkg repo . || logger -t "${MYNAME}" -- "failed to create pkg(8) files"
