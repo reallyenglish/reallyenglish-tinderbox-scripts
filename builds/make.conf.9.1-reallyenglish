@@ -9,6 +9,9 @@ MASTER_SITE_XORG=	\
 # use postgresql92. upgrading to 9.2 is now realistic
 WITH_PGSQL_VER=92
 
+# define version explicitly to avoid using system's python
+PYTHON_DEFAULT_PORTVERSION=     2.7.3
+
 # enable modules for reverse proxy
 # plain apache: for legacy (PHP, icinga, mod_perl, etc) applications
 # apache22-worker-mpm:	reverse proxy
