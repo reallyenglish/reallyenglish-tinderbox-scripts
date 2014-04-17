@@ -11,7 +11,8 @@ HOOKS=	postBuildExtract \
 	prePortBuild \
 	prePortChecksum \
 	preAddPort \
-	prePortsTreeUpdate
+	prePortsTreeUpdate \
+	preTinderbuild
 
 all:	install_dir
 .for H in ${HOOKS}
@@ -19,7 +20,7 @@ all:	install_dir
 	    ${INSTALL_BIN} ${H} ${HOOKS_DIR}; \
 	    ${TC_CMD} updateHookCmd -h ${H} -c ${HOOKS_DIR}/${H}; \
 	else \
-	    ${TC_CMD} updateHookCmd -h ${H} -c ""; \
+	    ${TC_CMD} updateHookCmd -h ${H}; \
 	fi
 .endfor
 
