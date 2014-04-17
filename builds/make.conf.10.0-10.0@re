@@ -23,8 +23,7 @@ nginx_SET=	HTTP_SSL HTTP_STATUS HTTP_REWRITE HEADERS_MORE LUA
 
 # prefer apache22-worker-mpm where possible because prefork has been
 # problematic for us (fork cost, memory hog, etc)
-.if ${.CURDIR:M*/www/moodle*} || \
-    ${.CURDIR:M*/ports-mgmt/tinderbox}
+.if ${.CURDIR:M*/www/moodle*}
 # php is not thread-safe
 APACHE_PORT=	www/apache22
 .else
@@ -130,8 +129,8 @@ nrpe2_SET=	ARGS
 nagios-portaudit_SET=	PORTAUDIT
 nagios-portaudit_UNSET=	PORTUPGRADE
 
-tinderbox_SET=  PGSQL
-tinderbox_UNSET=    MYSQL
+tinderbox_SET=  PGSQL NGINX
+tinderbox_UNSET=    MYSQL APACHE
 
 # virtualbox is used with phpvirtualbox and no x11
 virtualbox-ose_SET=	UDPTUNNEL VDE VNC WEBSERVICE
