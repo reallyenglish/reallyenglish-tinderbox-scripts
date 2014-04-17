@@ -13,7 +13,7 @@
 #	CLEANOPTIONS : 1 if rmconfig is to be done prior to using OPTIONS; 0 otherwise
 # 	PB : Tinderbox root
 
-MYNAME=$0
+MYNAME=`basename $0`
 MAKE_CONF="${PB}/builds/make.conf.${BUILD}"
 # /usr/local/tinderbox/9.1-reallyenglish/etc/make.conf
 logger -t "${MYNAME}" "copying make.conf from ${MAKE_CONF} to ${PB}/${BUILD}/etc/make.conf (if any)"

@@ -2,7 +2,7 @@
 
 # after building package, create files for pkg(8). without these files, pkg(8) would not be able to find new package.
 set -e
-MYNAME=$0
+MYNAME='basename $0`
 
 DIR="${PB}/packages/${BUILD}/All"
 logger -t "${MYNAME}" -- "the package directory is ${DIR}"
