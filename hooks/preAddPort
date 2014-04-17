@@ -18,6 +18,6 @@ MAKE_CONF="${PB}/builds/make.conf.${BUILD}"
 # /usr/local/tinderbox/9.1-reallyenglish/etc/make.conf
 logger -t "${MYNAME}" "copying make.conf from ${MAKE_CONF} to ${PB}/${BUILD}/etc/make.conf (if any)"
 if [ -f ${MAKE_CONF} ]; then
-    cp ${MAKE_CONF} ${DESTDIR}/etc/make.conf || exit 1
+    cp ${MAKE_CONF} ${PB}/${BUILD}/etc/make.conf || exit 1
 fi
 
