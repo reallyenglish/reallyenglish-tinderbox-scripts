@@ -23,7 +23,8 @@ nginx_SET=	HTTP_SSL HTTP_STATUS HTTP_REWRITE HEADERS_MORE LUA
 
 # prefer apache22-worker-mpm where possible because prefork has been
 # problematic for us (fork cost, memory hog, etc)
-.if ${.CURDIR:M*/www/moodle*}
+.if ${.CURDIR:M*/www/moodle*} || \
+	${.CURDIR:M*/www/mod_php5}
 # php is not thread-safe
 APACHE_PORT=	www/apache22
 .else
