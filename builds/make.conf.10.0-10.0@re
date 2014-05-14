@@ -1,4 +1,4 @@
-DEFAULT_VERSIONS=   ruby=2.1 pgsql=9.3
+DEFAULT_VERSIONS=   ruby=2.0 pgsql=9.3
 
 # prefer faster mirrors
 MASTER_SITE_PERL_CPAN_BY=	\
@@ -143,5 +143,8 @@ Unreal_UNSET=	IPV6
 moodle_SET= PGSQL LDAP
 
 lucene_SET= CONTRIB
+
+# ETCSYMLINK is required because fetch(1) in 10.x checks cert by default
+ca_root_nss_SET=	ETCSYMLINK
 
 # vim: ft=make
