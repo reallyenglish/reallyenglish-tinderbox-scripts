@@ -181,4 +181,8 @@ DEFAULT_PGSQL_VER=93
 .if ${.CURDIR:M*/net-mgmt/sensu-community-plugins*}
 SENSU_ETC_DIR=	sensu/etc
 .endif
+
+# ETCSYMLINK is required because fetch(1) in 10.x checks cert by default
+ca_root_nss_SET=	ETCSYMLINK
+
 # vim: ft=make
