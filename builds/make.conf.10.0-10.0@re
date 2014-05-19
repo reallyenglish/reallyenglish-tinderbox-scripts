@@ -147,4 +147,7 @@ lucene_SET= CONTRIB
 # ETCSYMLINK is required because fetch(1) in 10.x checks cert by default
 ca_root_nss_SET=	ETCSYMLINK
 
+# we do not use SNMP
+munin-node_UNSET=	SNMP
+
 # vim: ft=make
