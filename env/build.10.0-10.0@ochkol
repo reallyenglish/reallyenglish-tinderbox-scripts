@@ -1,0 +1,7 @@
+DEFAULT_VERSIONS=ruby=2.1
+
+# TODO
+# - update www/graphite-web with option NG
+# - java/jdk15 has been removed (linux-sun-jdk16, linux-sun-jdk17, openjdk6, openjdk6-jre or openjdk7)
+# - review -nox11 ports (cairo, ImageMagick, ghostscript7, ghostscript8, ocaml and emacs)
+
