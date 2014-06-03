@@ -147,4 +147,8 @@ lucene_SET= CONTRIB
 # ETCSYMLINK is required because fetch(1) in 10.x checks cert by default
 ca_root_nss_SET=	ETCSYMLINK
 
+# disable rdoc because build failed with:
+# MESSAGE:   missing aref_prefix for RDoc::SingleClass
+rubygem-cool.io_SET=	NOPORTDOCS
+
 # vim: ft=make
