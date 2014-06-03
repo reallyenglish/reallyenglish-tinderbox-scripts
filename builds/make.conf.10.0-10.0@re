@@ -150,4 +150,8 @@ ca_root_nss_SET=	ETCSYMLINK
 # we do not use SNMP
 munin-node_UNSET=	SNMP
 
+# disable rdoc because build failed with:
+# MESSAGE:   missing aref_prefix for RDoc::SingleClass
+devel_rubygem-cool.io_UNSET=DOCS
+
 # vim: ft=make
