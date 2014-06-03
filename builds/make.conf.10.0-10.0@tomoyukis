@@ -149,6 +149,6 @@ ca_root_nss_SET=	ETCSYMLINK
 
 # disable rdoc because build failed with:
 # MESSAGE:   missing aref_prefix for RDoc::SingleClass
-rubygem-cool.io_SET=	NOPORTDOCS
+devel_rubygem-cool.io_UNSET=DOCS
 
 # vim: ft=make
