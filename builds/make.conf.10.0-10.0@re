@@ -1,4 +1,4 @@
-DEFAULT_VERSIONS=   ruby=2.0 pgsql=9.3
+DEFAULT_VERSIONS=   ruby=2.1 pgsql=9.3
 
 # prefer faster mirrors
 MASTER_SITE_PERL_CPAN_BY=	\
