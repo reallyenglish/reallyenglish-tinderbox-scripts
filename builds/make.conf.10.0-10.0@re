@@ -154,6 +154,4 @@ munin-node_UNSET=	SNMP
 # MESSAGE:   missing aref_prefix for RDoc::SingleClass
 devel_rubygem-cool.io_UNSET=DOCS
 
-ruby21_SET=	DEBUG
-ruby20_SET=	DEBUG
 # vim: ft=make
