@@ -144,6 +144,10 @@ racktables_SET=	LDAP
 # integrate mailman with postfix
 mailman_SET=	MTA POSTFIX
 
+# we are using nginx with fcgiwrap 
+rt38_SET=	PGSQL GRAPHVIZ
+rt38_UNSET=	APACHE MODPERL MYSQL
+
 # ports that still do not support OptionNG
 .if ${.CURDIR:M*/irc/unreal}
 WITH_SSL=y
@@ -164,8 +168,6 @@ WITH_CONTRIB=y
 
 .if ${.CURDIR:M*/databases/postgresql82-*} || \
   ${.CURDIR:M*/databases/skytools} || \
-  ${.CURDIR:M*/databases/p5-Pg} || \
-  ${.CURDIR:M*/databases/p5-DBD-Pg} || \
   ${.CURDIR:M*/databases/py-psycopg2} || \
   ${.CURDIR:M*/databases/pgmecab}
 WITH_PGSQL_VER=82
@@ -173,6 +175,9 @@ DEFAULT_PGSQL_VER=82
 .endif
 
 .if ${.CURDIR:M*/databases/postgresql93-*} || \
+    ${.CURDIR:M*/databases/p5-Pg} || \
+    ${.CURDIR:M*/databases/p5-DBD-Pg} || \
+    ${.CURDIR:M*/www/rt38} || \
     ${.CURDIR:M*/databases/pgpool-II-33}
 WITH_PGSQL_VER=93
 DEFAULT_PGSQL_VER=93
