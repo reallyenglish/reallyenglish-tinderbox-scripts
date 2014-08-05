@@ -148,6 +148,10 @@ mailman_SET=	MTA POSTFIX
 rt38_SET=	PGSQL GRAPHVIZ
 rt38_UNSET=	APACHE MODPERL MYSQL
 
+# we are using rt38
+p5-RT-Authen-ExternalAuth_SET=	RT38
+p5-RT-Authen-ExternalAuth_UNSET=	RT42
+
 # ports that still do not support OptionNG
 .if ${.CURDIR:M*/irc/unreal}
 WITH_SSL=y
