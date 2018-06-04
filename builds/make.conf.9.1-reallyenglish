@@ -191,6 +191,14 @@ DEFAULT_PGSQL_VER=93
 SENSU_ETC_DIR=	sensu/etc
 .endif
 
+.if ${.CURDIR:M*/www/apache22}
+WITH_OPENSSL_PORT=yes
+.endif
+
+.if ${.CURDIR:M*/www/apache22-worker-mpm}
+WITH_OPENSSL_PORT=yes
+.endif
+
 # ETCSYMLINK is required because fetch(1) in 10.x checks cert by default
 ca_root_nss_SET=	ETCSYMLINK
 
