@@ -199,6 +199,10 @@ WITH_OPENSSL_PORT=yes
 WITH_OPENSSL_PORT=yes
 .endif
 
+.if ${.CURDIR:M*/devel/apr1}
+WITH_OPENSSL_PORT=yes
+.endif
+
 # ETCSYMLINK is required because fetch(1) in 10.x checks cert by default
 ca_root_nss_SET=	ETCSYMLINK
 
