@@ -152,6 +152,9 @@ rt38_UNSET=	APACHE MODPERL MYSQL
 p5-RT-Authen-ExternalAuth_SET=	RT38
 p5-RT-Authen-ExternalAuth_UNSET=	RT42
 
+# use mecab
+pgroonga_SET=	MECAB
+
 # ports that still do not support OptionNG
 .if ${.CURDIR:M*/irc/unreal}
 WITH_SSL=y
@@ -182,7 +185,8 @@ DEFAULT_PGSQL_VER=82
     ${.CURDIR:M*/databases/p5-Pg} || \
     ${.CURDIR:M*/databases/p5-DBD-Pg} || \
     ${.CURDIR:M*/www/rt38} || \
-    ${.CURDIR:M*/databases/pgpool-II-33}
+    ${.CURDIR:M*/databases/pgpool-II-33} || \
+    ${.CURDIR:M*/databases/pgroonga}
 WITH_PGSQL_VER=93
 DEFAULT_PGSQL_VER=93
 .endif
